@@ -1,7 +1,13 @@
+import { Header } from "./components/Header";
 import { Post } from "./Post";
 
 function App() {
-  return <Post />;
+  return (
+    <>
+      <Header />
+      <Post />
+    </>
+  );
 }
 
 export default App;
