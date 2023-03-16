@@ -4,7 +4,7 @@ import style from "./index.module.css";
 
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 type PostProps = {
   author: {
@@ -32,7 +32,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
     setComments(commentsWithoutDeletedOne);
   }
 
-  function handleCreateNewComment(e: any) {
+  function handleCreateNewComment(e: FormEvent) {
     e.preventDefault();
     setComments((state) => [...state, newComment]);
     setNewComment("");

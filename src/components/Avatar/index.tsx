@@ -1,6 +1,7 @@
 import style from "./index.module.css";
+import { ImgHTMLAttributes } from "react";
 
-type AvatarProps = {
+type AvatarProps = ImgHTMLAttributes<HTMLImageElement> & {
   border: boolean;
   avatarUrl?: string;
 };
