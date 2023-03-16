@@ -24,11 +24,11 @@ export function Post({ author, content, publishedAt }: PostProps) {
   const [newComment, setNewComment] = useState("");
 
   function deleteComment(comment: string) {
-    const deletComment = comments.filter((item) => {
+    const commentsWithoutDeletedOne = comments.filter((item) => {
       return item !== comment;
     });
 
-    setComments(deletComment);
+    setComments(commentsWithoutDeletedOne);
   }
 
   function handleCreateNewComment(e: any) {
@@ -90,6 +90,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
         <strong>Deixe seu feedback</strong>
 
         <textarea
+          required
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           name="comment"
