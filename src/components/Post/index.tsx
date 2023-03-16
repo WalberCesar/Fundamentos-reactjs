@@ -4,6 +4,7 @@ import style from "./index.module.css";
 
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import { useState } from "react";
 
 type PostProps = {
   author: {
@@ -19,6 +20,15 @@ type PostProps = {
 };
 
 export function Post({ author, content, publishedAt }: PostProps) {
+  const [comments, setComments] = useState<string[]>([]);
+  const [newComment, setNewComment] = useState("");
+
+  function handleCreateNewComment(e: any) {
+    e.preventDefault();
+    setComments((state) => [...state, newComment]);
+    setNewComment("");
+  }
+
   const publishedDateFormat = format(publishedAt, "d 'de' LLLL 'ás' HH:mm'h'", {
     locale: ptBR,
   });
@@ -46,10 +56,10 @@ export function Post({ author, content, publishedAt }: PostProps) {
       <div className={style.content}>
         {content.map((item) => {
           if (item.type === "paragraph") {
-            return <p>{item.content}</p>;
+            return <p key={item.content}>{item.content}</p>;
           } else if (item.type === " link") {
             return (
-              <p>
+              <p key={item.content}>
                 <a href="#">{item.content}</a>
               </p>
             );
@@ -68,19 +78,33 @@ export function Post({ author, content, publishedAt }: PostProps) {
         </p>
       </div>
 
-      <form className={style.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={style.commentForm}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea placeholder="Deixe um comentário" />
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          name="comment"
+          placeholder="Deixe um comentário"
+        />
         <footer>
-          <button type="submit">Comentar</button>
+          <button disabled={newComment == ""} type="submit">
+            Comentar
+          </button>
         </footer>
       </form>
 
       <div className={style.commentList}>
-        <Comments />
-        <Comments />
-        <Comments />
+        {comments.map((item) => {
+          return (
+            <Comments
+              setComments={setComments}
+              comments={comments}
+              key={item}
+              content={item}
+            />
+          );
+        })}
       </div>
     </article>
   );
