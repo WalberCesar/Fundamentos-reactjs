@@ -23,6 +23,14 @@ export function Post({ author, content, publishedAt }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
 
+  function deleteComment(comment: string) {
+    const deletComment = comments.filter((item) => {
+      return item !== comment;
+    });
+
+    setComments(deletComment);
+  }
+
   function handleCreateNewComment(e: any) {
     e.preventDefault();
     setComments((state) => [...state, newComment]);
@@ -98,8 +106,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
         {comments.map((item) => {
           return (
             <Comments
-              setComments={setComments}
-              comments={comments}
+              handleDeleteComment={deleteComment}
               key={item}
               content={item}
             />

@@ -1,25 +1,13 @@
 import { ThumbsUp, Trash } from "phosphor-react";
-import { useState } from "react";
 import { Avatar } from "../Avatar";
 import style from "./index.module.css";
 
 type CommentsProps = {
   content: string;
-  comments: string[];
-  setComments: React.Dispatch<React.SetStateAction<string[]>>;
+  handleDeleteComment(comment: string): void;
 };
 
-export function Comments({ content, comments, setComments }: CommentsProps) {
-  // const [filterComment, setFilterComment] = useState<string[]>([]);
-
-  function deleteComment() {
-    const deletComment = comments.filter((item) => {
-      return item !== content;
-    });
-
-    setComments(deletComment);
-  }
-
+export function Comments({ content, handleDeleteComment }: CommentsProps) {
   return (
     <div className={style.comment}>
       <Avatar border={false} />
@@ -34,7 +22,10 @@ export function Comments({ content, comments, setComments }: CommentsProps) {
               </time>
             </div>
 
-            <button onClick={deleteComment} title="Deletar comentário">
+            <button
+              onClick={() => handleDeleteComment(content)}
+              title="Deletar comentário"
+            >
               <Trash size={20} />
             </button>
           </header>
