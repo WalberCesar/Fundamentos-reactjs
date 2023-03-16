@@ -1,5 +1,5 @@
 import { Header } from "./components/Header";
-import { Post } from "./Post";
+import { Post } from "./components/Post";
 
 import style from "./App.module.css";
 
@@ -13,6 +13,7 @@ function App() {
 
       <div className={style.wrapper}>
         <Sidebar />
+        <Post />
       </div>
     </>
   );
