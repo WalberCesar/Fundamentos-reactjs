@@ -22,6 +22,7 @@ type PostProps = {
 export function Post({ author, content, publishedAt }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
+  const isNewCommentEmpty = newComment.length == 0;
 
   function deleteComment(comment: string) {
     const commentsWithoutDeletedOne = comments.filter((item) => {
@@ -97,7 +98,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
           placeholder="Deixe um comentário"
         />
         <footer>
-          <button disabled={newComment == ""} type="submit">
+          <button disabled={isNewCommentEmpty} type="submit">
             Comentar
           </button>
         </footer>
