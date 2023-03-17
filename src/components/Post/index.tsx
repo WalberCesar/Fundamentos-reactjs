@@ -50,7 +50,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
     <article className={style.post}>
       <header>
         <div className={style.author}>
-          <Avatar avatarUrl={author.avatarUrl} border />
+          <Avatar src={author.avatarUrl} border />
           <div className={style.authorInfo}>
             <strong>{author.name}</strong>
             <span>{author.role}</span>
